@@ -5,5 +5,6 @@ def home(request):
     return render(request, 'home.html', context)
 
 def list_items(request):
-    context = {}
+    qs = Stock.objects.all()
+    context = {'qs':qs}
     return render(request, 'list_items.html', context)

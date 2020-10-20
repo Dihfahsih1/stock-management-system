@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+
+{% for item in qs %}
+    <ul>
+        <li> {{ item.item_name }}</li>
+        <li> {{ item.quantity }}</li>
+    </ul>
+{% endfor %}
