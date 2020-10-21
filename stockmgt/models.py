@@ -1,4 +1,10 @@
 from django.db import models
+
+class Category(models.Model):
+	name = models.CharField(max_length=50, blank=True, null=True)
+	def __str__(self):
+		return self.name
+
 class Stock(models.Model):
 	category = models.CharField(max_length=50, blank=True, null=True)
 	item_name = models.CharField(max_length=50, blank=True, null=True)
