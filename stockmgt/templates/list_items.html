@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>List of Items</h1>
+<form method='POST' action=''>{% csrf_token %}
+  {{form|crispy}}
+      <input type="submit" value='Search'/>
+</form>
+<br>
+<div class="header">{{header}}</div>
+  <div class="display_table">
     <table class='table'>
         <thead>
           <tr>
@@ -19,4 +25,5 @@
           </tr>
       {% endfor %}
     </table>
+  </div>
 {% endblock %}

@@ -5,8 +5,16 @@ def home(request):
     return render(request, 'home.html', context)
 
 def list_items(request):
+    form = StockSearchForm(request.POST or None)
     qs = Stock.objects.all()
-    context = {'qs':qs}
+    header = 'List of all products'
+    if request.method == 'POST':
+        qs = Stock.objects.filter(category__icontains=form['category'].value(),
+                                        item_name__icontains=form['item_name'].value()
+                                        )
+        context = {'qs':qs,'header':header,"form": form,}
+
+    context = {'qs':qs,'header':header,}
     return render(request, 'list_items.html', context)
 
 def add_item(request):
