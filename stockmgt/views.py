@@ -14,7 +14,7 @@ def list_items(request):
                                         )
         context = {'qs':qs,'header':header,"form": form,}
 
-    context = {'qs':qs,'header':header,}
+    context = {'qs':qs,'header':header,"form": form,}
     return render(request, 'list_items.html', context)
 
 def add_item(request):
