@@ -1,10 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
     <h1>List of Items</h1>
-    {% for item in qs %}
-    <ul>
-        <li> {{ item.item_name }}</li>
-        <li> {{ item.quantity }}</li>
-    </ul>
-{% endfor %}
+    <table class='table'>
+        <thead>
+          <tr>
+            <th>COUNT</th>
+            <th>CATEGORY</th>
+            <th>ITEM NAME</th>
+            <th>QUANTITY IN STORE</th>
+          </tr>
+        </thead>
+      {% for instance in qs %}
+          <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{instance.category}}</td>
+            <td>{{instance.item_name}}</td>
+            <td>{{instance.quantity}}</td>
+          </tr>
+      {% endfor %}
+    </table>
 {% endblock %}
