@@ -16,7 +16,6 @@ def list_items(request):
 
     context = {'qs':qs,'header':header,"form": form,}
     return render(request, 'list_items.html', context)
-
 def add_item(request):
     form = StockCreateForm(request.POST or None)
     if request.method=='POST':
@@ -25,6 +24,16 @@ def add_item(request):
             return redirect('list_items')
     context = {'form':form,'header':'Add Item'}
     return render(request, 'add_item.html', context)
+
+def add_category(request):
+    form = CategoryForm(request.POST or None)
+    if request.method=='POST':
+        if form.is_valid():
+            form.save()
+            return redirect('list_items')
+    context = {'form':form,'header':'Create Item Category'}
+    return render(request, 'add_category.html', context)
+    
 
 def update_items(request, pk):
 	queryset = Stock.objects.get(id=pk)
