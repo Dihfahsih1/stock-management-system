@@ -1,8 +1,10 @@
-<!DOCTYPE html>
-
-{% for item in qs %}
+{% extends 'base.html' %}
+{% block content %}
+    <h1>List of Items</h1>
+    {% for item in qs %}
     <ul>
         <li> {{ item.item_name }}</li>
         <li> {{ item.quantity }}</li>
     </ul>
 {% endfor %}
+{% endblock %}

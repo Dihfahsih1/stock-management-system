@@ -1,6 +1,5 @@
 from django.shortcuts import render,redirect
-from . import forms
-
+from .forms import *
 def home(request):
     context = {}
     return render(request, 'home.html', context)
