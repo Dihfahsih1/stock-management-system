@@ -28,6 +28,7 @@
             <th>CATEGORY</th>
             <th>ITEM NAME</th>
             <th>QUANTITY IN STORE</th>
+            <th>Actions</th>
           </tr>
         </thead>
       {% for instance in qs %}
@@ -36,6 +37,7 @@
             <td>{{instance.category}}</td>
             <td>{{instance.item_name}}</td>
             <td>{{instance.quantity}}</td>
+            <td> <a href="{% url 'update_items' instance.pk %}"><span class="btn-sm btn-success">Update {{instance.item_name}}</span></a></td>
           </tr>
       {% endfor %}
     </table>

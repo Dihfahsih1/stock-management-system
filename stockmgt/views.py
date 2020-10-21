@@ -23,7 +23,7 @@ def add_item(request):
         if form.is_valid():
             form.save()
             return redirect('list_items')
-    context = {'form':form}
+    context = {'form':form,'header':'Add Item'}
     return render(request, 'add_item.html', context)
 
 def update_items(request, pk):
@@ -36,6 +36,7 @@ def update_items(request, pk):
 			return redirect('list_items')
 
 	context = {
-		'form':form
+		'form':form,
+        'header':'Update the Item details'
 	}
 	return render(request, 'add_item.html', context)
