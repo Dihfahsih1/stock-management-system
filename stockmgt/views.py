@@ -40,6 +40,8 @@ def add_item(request):
     return render(request, 'add_item.html', context)
 
 def add_category(request):
+    queryset = Category.objects.get(name=None)
+    queryset.delete()
     form = CategoryForm(request.POST or None)
     if request.method=='POST':
         if form.is_valid():
