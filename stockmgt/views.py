@@ -1,5 +1,7 @@
 from django.shortcuts import render,redirect
 from .forms import *
+from django.http import HttpResponse
+import csv
 def home(request):
     context = {}
     return render(request, 'home.html', context)
@@ -9,12 +11,22 @@ def list_items(request):
     qs = Stock.objects.all()
     header = 'List of all products'
     if request.method == 'POST':
-        qs = Stock.objects.filter(category__icontains=form['category'].value(),
+        qs = Stock.objects.filter(#category__icontains=form['category'].value(),
                                         item_name__icontains=form['item_name'].value()
                                         )
         context = {'qs':qs,'header':header,"form": form,}
 
-    context = {'qs':qs,'header':header,"form": form,}
+        if form['export_to_CSV'].value() == True:
+            response = HttpResponse(content_type='text/csv')
+            response['Content-Disposition'] = 'attachment; filename="List of stock.csv"'
+            writer = csv.writer(response)
+            writer.writerow(['CATEGORY', 'ITEM NAME', 'QUANTITY'])
+            instance = queryset
+            for stock in instance:
+                writer.writerow([stock.category, stock.item_name, stock.quantity])
+            return response
+
+        context = {'qs':qs,'header':header,"form": form,}
     return render(request, 'list_items.html', context)
 def add_item(request):
     form = StockCreateForm(request.POST or None)
