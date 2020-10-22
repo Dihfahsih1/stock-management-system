@@ -28,6 +28,8 @@
             <th>CATEGORY</th>
             <th>ITEM NAME</th>
             <th>QUANTITY IN STORE</th>
+            <th>TIMESTAMP</th>
+            <th>TIME UPDATED</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -37,6 +39,8 @@
             <td>{{instance.category}}</td>
             <td><a href="{% url 'update_items' instance.id %}">{{instance.item_name}}</a></td>
             <td>{{instance.quantity}}</td>
+            <td>{{instance.timestamp}}</td>
+            <td>{{instance.last_updated}}</td>
             <td><a href="{% url 'delete_item' instance.pk %}"><img src="{% static 'img/delete.png' %}" height="20"></a>
             </td>
           </tr>
