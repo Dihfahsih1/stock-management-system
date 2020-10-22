@@ -10,23 +10,23 @@ def list_items(request):
     form = StockSearchForm(request.POST or None)
     qs = Stock.objects.all()
     header = 'List of all products'
+    context = {'qs':qs,'header':header,"form": form,}
     if request.method == 'POST':
         qs = Stock.objects.filter(#category__icontains=form['category'].value(),
                                         item_name__icontains=form['item_name'].value()
                                         )
-        context = {'qs':qs,'header':header,"form": form,}
 
         if form['export_to_CSV'].value() == True:
             response = HttpResponse(content_type='text/csv')
             response['Content-Disposition'] = 'attachment; filename="List of stock.csv"'
             writer = csv.writer(response)
             writer.writerow(['CATEGORY', 'ITEM NAME', 'QUANTITY'])
-            instance = queryset
+            instance = qs
             for stock in instance:
                 writer.writerow([stock.category, stock.item_name, stock.quantity])
             return response
-
         context = {'qs':qs,'header':header,"form": form,}
+        
     return render(request, 'list_items.html', context)
 def add_item(request):
     form = StockCreateForm(request.POST or None)
