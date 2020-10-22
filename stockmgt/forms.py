@@ -37,3 +37,13 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ['name']
+
+    def clean_category(self):
+        category_name = self.cleaned_data.get('name')
+        if not category_name:
+            raise forms.ValidationError('This field is required')
+
+        for instance in Category.objects.all():
+            if instance.name == category_name:
+                raise forms.ValidationError(category_name + ' is already created, choose a different name')
+        return category_name
