@@ -29,6 +29,7 @@ def list_items(request):
         context = {'qs':qs,'header':header,"form": form,}
         
     return render(request, 'list_items.html', context)
+    
 def add_item(request):
     form = StockCreateForm(request.POST or None)
     if request.method=='POST':
@@ -45,7 +46,6 @@ def add_category(request):
     form = CategoryForm(request.POST or None)
     if request.method=='POST':
         if form.is_valid():
-            print(form.errors)
             form.save()
             messages.success(request, 'Successfully Saved')
             return redirect('list_items')
