@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .forms import *
 from django.http import HttpResponse
 import csv
+from django.contrib import messages
 def home(request):
     context = {}
     return render(request, 'home.html', context)
@@ -33,6 +34,7 @@ def add_item(request):
     if request.method=='POST':
         if form.is_valid():
             form.save()
+            messages.success(request, 'Successfully Saved')
             return redirect('list_items')
     context = {'form':form,'header':'Add Item'}
     return render(request, 'add_item.html', context)
@@ -42,6 +44,7 @@ def add_category(request):
     if request.method=='POST':
         if form.is_valid():
             form.save()
+            messages.success(request, 'Successfully Saved')
             return redirect('list_items')
     context = {'form':form,'header':'Create Item Category'}
     return render(request, 'add_category.html', context)
@@ -55,7 +58,6 @@ def update_items(request, pk):
 		if form.is_valid():
 			form.save()
 			return redirect('list_items')
-
 	context = {
 		'form':form,
         'header':'Update the Item details'
@@ -67,6 +69,7 @@ def delete_items(request, pk):
     queryset = Stock.objects.get(id=pk)
     if request.method == 'POST':
         queryset.delete()
+        messages.success(request, 'Deleted Successfully')
         return redirect('list_items')
     context={'item':queryset}
     return render(request, 'delete_item.html', context)
