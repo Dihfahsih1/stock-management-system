@@ -3,10 +3,14 @@ from .forms import *
 from django.http import HttpResponse, HttpResponseRedirect
 import csv
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
+@login_required
 def home(request):
     context = {}
     return render(request, 'home.html', context)
 
+@login_required
 def list_items(request):
     form = StockSearchForm(request.POST or None)
     qs = Stock.objects.all()
@@ -30,6 +34,7 @@ def list_items(request):
         
     return render(request, 'list_items.html', context)
 
+@login_required
 def add_item(request):
     form = StockCreateForm(request.POST or None)
     if request.method=='POST':
@@ -40,6 +45,7 @@ def add_item(request):
     context = {'form':form,'header':'Add Item'}
     return render(request, 'add_item.html', context)
 
+@login_required
 def add_category(request):
     queryset = Category.objects.get(name=None)
     queryset.delete()

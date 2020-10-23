@@ -11,7 +11,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'home' %}">Home</a>
             </li>
-
+            {% if request.user.is_authenticated %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'add_category' %}">Add Catgory</a>
             </li>
@@ -23,12 +23,22 @@
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'list_items' %}">Products</a>
             </li>
+            {% endif %}
+            <form class="form-inline mt-2 mt-md-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
         </ul>
 
-        <form class="form-inline mt-2 mt-md-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        
+
+        <ul class="navbar-nav">
+            {% if request.user.is_authenticated %}
+            <li><a href="/accounts/logout"><button class="btn btn-danger">{{ user }} | Logout</button></a></li>
+            {% else %}
+            <li><a href="/accounts/login">Login</a></li>
+            {% endif %}
+        </ul>
 
     </div>
 </nav>
