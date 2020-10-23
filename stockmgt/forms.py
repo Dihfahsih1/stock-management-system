@@ -47,3 +47,14 @@ class CategoryForm(forms.ModelForm):
             if instance.name == category_name:
                 raise forms.ValidationError(category_name + ' is already created, choose a different name')
         return category_name
+        
+class IssueForm(forms.ModelForm):
+	class Meta:
+		model = Stock
+		fields = ['issue_quantity', 'issue_to']
+
+
+class ReceiveForm(forms.ModelForm):
+	class Meta:
+		model = Stock
+		fields = ['receive_quantity', 'receive_by']
