@@ -4,7 +4,7 @@ from .models import  *
 class StockCreateForm(forms.ModelForm):
     class Meta:
         model = Stock
-        fields = ['category', 'item_name', 'quantity','date']
+        fields = ['category', 'item_name', 'quantity']
 
     def clean_category(self):
         category = self.cleaned_data.get('category')
@@ -47,7 +47,7 @@ class CategoryForm(forms.ModelForm):
             if instance.name == category_name:
                 raise forms.ValidationError(category_name + ' is already created, choose a different name')
         return category_name
-        
+
 class IssueForm(forms.ModelForm):
 	class Meta:
 		model = Stock
