@@ -38,7 +38,7 @@
             <td>{{forloop.counter}}</td>
             <td>{{instance.category}}</td>
             <td><a href="{% url 'update_items' instance.id %}">{{instance.item_name}}</a></td>
-            <td>{{instance.quantity}}</td>
+            <td><a href="{% url 'stock_detail' instance.id %}">{{instance.quantity}}</a></td>
             <td>{{instance.timestamp}}</td>
             <td>{{instance.last_updated}}</td>
             <td><a href="{% url 'delete_item' instance.pk %}"><img src="{% static 'img/delete.png' %}" height="20"></a>

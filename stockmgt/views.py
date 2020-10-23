@@ -29,7 +29,7 @@ def list_items(request):
         context = {'qs':qs,'header':header,"form": form,}
         
     return render(request, 'list_items.html', context)
-    
+
 def add_item(request):
     form = StockCreateForm(request.POST or None)
     if request.method=='POST':
@@ -76,3 +76,11 @@ def delete_items(request, pk):
         return redirect('list_items')
     context={'item':queryset}
     return render(request, 'delete_item.html', context)
+
+def stock_detail(request, pk):
+	queryset = Stock.objects.get(id=pk)
+	context = {
+		"title": queryset.item_name,
+		"queryset": queryset,
+	}
+	return render(request, "stock_details.html", context)
