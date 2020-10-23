@@ -139,4 +139,4 @@ def reorder_level(request, pk):
 			"instance": queryset,
 			"form": form,
 		}
-	return render(request, "add_items.html", context)
+	return render(request, "add_item.html", context)
