@@ -97,7 +97,7 @@ def issue_items(request, pk):
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.quantity -= instance.issue_quantity
-		#instance.issue_by = str(request.user)
+		instance.issue_by = str(request.user)
 		messages.success(request, "Issued SUCCESSFULLY. " + str(instance.quantity) + " " + str(instance.item_name) + "s now left in Store")
 		instance.save()
 
@@ -120,6 +120,7 @@ def receive_items(request, pk):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.quantity += instance.receive_quantity
+        instance.receive_by = str(request.user)
         messages.success(request, "Received SUCCESSFULLY. " + str(instance.quantity) + " " + str(instance.item_name)+"s now in Store")
         instance.save()
         return redirect('/stock-detail/'+str(instance.id))
