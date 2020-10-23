@@ -7,14 +7,19 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def home(request):
-    context = {}
-    return render(request, 'home.html', context)
+	title = 'Welcome: This is the Home Page'
+	form = 'Welcome: This is the Home Page'
+	context = {
+		"title": title,
+		"test": form,
+	}
+	return redirect('list_items')
 
 @login_required
 def list_items(request):
     form = StockSearchForm(request.POST or None)
     qs = Stock.objects.all()
-    header = 'List of all products'
+    header = 'List of Items'
     context = {'qs':qs,'header':header,"form": form,}
     if request.method == 'POST':
         qs = Stock.objects.filter(#category__icontains=form['category'].value(),
@@ -47,8 +52,6 @@ def add_item(request):
 
 @login_required
 def add_category(request):
-    queryset = Category.objects.get(name=None)
-    queryset.delete()
     form = CategoryForm(request.POST or None)
     if request.method=='POST':
         if form.is_valid():
