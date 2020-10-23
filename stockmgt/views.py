@@ -95,7 +95,7 @@ def issue_items(request, pk):
 		messages.success(request, "Issued SUCCESSFULLY. " + str(instance.quantity) + " " + str(instance.item_name) + "s now left in Store")
 		instance.save()
 
-		return redirect('stock_detail'+str(instance.id))
+		return redirect('/stock-detail/'+str(instance.id))
 		# return HttpResponseRedirect(instance.get_absolute_url())
 
 	context = {
@@ -114,10 +114,9 @@ def receive_items(request, pk):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.quantity += instance.receive_quantity
-        instance.save()
-        
         messages.success(request, "Received SUCCESSFULLY. " + str(instance.quantity) + " " + str(instance.item_name)+"s now in Store")
-        return redirect('/stock_detail/'+str(instance.id))
+        instance.save()
+        return redirect('/stock-detail/'+str(instance.id))
     context = {
             "title": 'Reaceive ' + str(queryset.item_name),
             "instance": queryset,
