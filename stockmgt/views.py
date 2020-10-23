@@ -22,10 +22,8 @@ def list_items(request):
     header = 'List of Items'
     context = {'qs':qs,'header':header,"form": form,}
     if request.method == 'POST':
-        qs = Stock.objects.filter(#category__icontains=form['category'].value(),
-                                        item_name__icontains=form['item_name'].value()
-                                        )
-
+        qs = Stock.objects.filter(item_name__icontains=form['item_name'].value(),last_updated__range=[
+		form['start_date'].value(),form['end_date'].value()])
         if form['export_to_CSV'].value() == True:
             response = HttpResponse(content_type='text/csv')
             response['Content-Disposition'] = 'attachment; filename="List of stock.csv"'
